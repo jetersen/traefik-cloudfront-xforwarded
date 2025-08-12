@@ -1,0 +1,25 @@
+name: Main
+
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  main:
+    name: Main Process
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@v8
+
+      - name: Tests
+        run: |
+          go test -v -cover ./...
